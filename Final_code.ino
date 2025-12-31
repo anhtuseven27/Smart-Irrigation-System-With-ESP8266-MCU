@@ -2,28 +2,28 @@
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
 #define BLYNK_PRINT Serial
-#define DHTPIN D3          // GPIO Pin where the dht11 is connected
+#define DHTPIN D3          // chan GPIO duoc ket noi
 DHT dht(DHTPIN, DHT11);
-char auth[] = "bV6v5cwR-kINmqKkbgP8uYQTXIgQoWBs";  //code sent via email
+char auth[] = "bV6v5cwR-kINmqKkbgP8uYQTXIgQoWBs";  //code gui toi email
 
-const int moisturePin = A0;             // moisteure sensor pin
+const int moisturePin = A0;             // chan do do am
 const int motorPin = D0;
 unsigned long interval = 10000;
 unsigned long previousMillis = 0;
 unsigned long interval1 = 1000;
 unsigned long previousMillis1 = 0;
-float moisturePercentage;              //moisture reading
-float h;                  // humidity reading
-float t;                  //temperature reading
+float moisturePercentage;              //phantram do am
+float h;                  // doc do am
+float t;                  // doc nhiet do
 
 void setup()
 {
   Serial.begin(115200);
   delay(10);
   pinMode(motorPin, OUTPUT);
-  digitalWrite(motorPin, LOW); // keep motor off initally
+  digitalWrite(motorPin, LOW); // tat
   dht.begin();
-  Blynk.begin(auth, "kkk", "kkk15032000");  //wifi name and password
+  Blynk.begin(auth, "anhtudeptrai", "skibidtoilet1234");  //ten+pass wifi
 
   Serial.println();
   Serial.print("Connecting to ");
@@ -44,10 +44,10 @@ void setup()
 void loop()
 {
   Blynk.run();
-  unsigned long currentMillis = millis(); // grab current time
+  unsigned long currentMillis = millis(); // set
 
-  h = dht.readHumidity();     // read humiduty
-  t = dht.readTemperature();     // read temperature
+  h = dht.readHumidity();     // doc
+  t = dht.readTemperature();     // doc
 
   if (isnan(h) || isnan(t))
   {
@@ -65,13 +65,13 @@ void loop()
   }
 
   if (moisturePercentage < 50) {
-    digitalWrite(motorPin, HIGH);         // tun on motor
+    digitalWrite(motorPin, HIGH);         // bat motor
   }
   if (moisturePercentage > 50 && moisturePercentage < 55) {
-    digitalWrite(motorPin, HIGH);        //turn on motor pump
+    digitalWrite(motorPin, HIGH);        // bat
   }
   if (moisturePercentage > 56) {
-    digitalWrite(motorPin, LOW);          // turn off mottor
+    digitalWrite(motorPin, LOW);          // tat
   }
 
   if ((unsigned long)(currentMillis - previousMillis) >= interval) {
